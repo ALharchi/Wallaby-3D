@@ -9,23 +9,21 @@ using System.Threading.Tasks;
 
 namespace Wallaby
 {
-    public class Solver
+    public class SolverOLD
     {
         public List<GoalObject> Goals { get; set; }
         public List<Particle> Particles { get; set; }
 
-        public double Tolerance;
+        //public double Tolerance;
         public double Threshold;
         public int Interations;
 
-        public Solver(List<GoalObject> goals)
+
+
+        public SolverOLD(List<GoalObject> goals)
         {
-
             this.Goals = goals;
-            this.Particles = new List<Particle>();
             CreateParticles();
-
-            //Update(Interations);
         }
 
         public void CreateParticles()
@@ -34,63 +32,19 @@ namespace Wallaby
             {
                 foreach (Point3d p in goal.Positions)
                 {
-                    // first we check if the point is not already there
-                    bool existAlready = Particles.Any(pt => pt.Position.ToString() == p.ToString());
-
-                    // if it doesn't exist, we create it and add it to our particles list and assign the particle to the goal
-                    if (!existAlready)
-                    {
-                        Particle myParticle = new Particle(p);
-                        this.Particles.Add(myParticle);
-                        goal.Particles.Add(myParticle);
-                    }
-                    // if exist, we retrieve it, and assign it to the goal
-                    else
-                    {
-                        Particle myParticle = Particles.FirstOrDefault(pt => pt.Position.ToString() == p.ToString());
-                        goal.Particles.Add(myParticle);
-                    }
+                    Particle particle = new Particle(p);
+                    this.Particles.Add(particle);
                 }
             }
         }
 
         public void Update(int iterationsCount)
         {
-            for (int i = 0; i < iterationsCount; i++)
-            {
-                //double averageMove = 0;
-                foreach (GoalObject goal in Goals)
-                {
-                    goal.Calculate();
-                }
-
-                for (int j = 0; j < Particles.Count; j++)
-                {
-                    Vector3d targetVelocity = new Vector3d(0, 0, 0);
-                    double divider = 0;
-                    for (int k = 0; k < Particles[j].Velocities.Count; k++)
-                    {
-                        targetVelocity += (Particles[j].Velocities[k] * Particles[j].Strengths[k]);
-                        divider += Particles[j].Strengths[k];
-                    }
-
-                    targetVelocity /= divider;
-
-                    Particles[j].Position += targetVelocity;
-
-                    //averageMove += targetVelocity.Length;
-
-                }
-            }
-        }
-
-        /*
-        public void Update(int iterationsCount)
-        {
+            /*
             // Apply all the goals
             foreach (GoalObject goal in Goals)
             {
-                goal.Calculate();
+                goal.Calculate(this.Particles);
 
                 // get velocities and add to particles
 
@@ -104,10 +58,7 @@ namespace Wallaby
                 }
 
             }
-
-            
-
-
+            */
         }
 
         /// <summary>
@@ -137,6 +88,6 @@ namespace Wallaby
             }
 
         }
-        */
+
     }
 }

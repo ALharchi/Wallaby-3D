@@ -15,7 +15,7 @@ namespace Wallaby.Goals
         
         }
 
-        public override void Calculate(List<Particle> p)
+        public override void Calculate()
         {
 
         }

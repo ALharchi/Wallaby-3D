@@ -10,17 +10,19 @@ namespace Wallaby.Goals
 {
     public class AnchorGoal : GoalObject
     {
-        public Point3d Particule { get; set; }
+        public Point3d Target { get; set; }
 
-
-        public AnchorGoal(Point3d p, double strength)
-        { 
-
-        }
-        public override void Calculate(List<Particle> p)
+        public AnchorGoal(Point3d p, Point3d t, double strength)
         {
-
+            this.Positions = new List<Point3d>() { p };
+            this.Target = t;
+            this.Strength = strength;
         }
-
+        public override void Calculate()
+        {
+            Vector3d velocity = Target - this.Particles[0].Position;
+            this.Particles[0].Velocities.Add(velocity);
+            this.Particles[0].Strengths.Add(Strength);
+        }
     }
 }

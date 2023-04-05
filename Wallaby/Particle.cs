@@ -8,16 +8,18 @@ using Rhino.Geometry;
 
 namespace Wallaby
 {
-    public struct Particle
+    public class Particle
     {
         public Point3d Position;
-        public Vector3d Velocity;
+        public List<Vector3d> Velocities;
+        public List<double> Strengths;
         //public Vector3d Acceleration;
 
-        public Particle(Point3d position, Vector3d velocity)//, Vector3d acceleration) 
+        public Particle(Point3d position)//, Vector3d acceleration) 
         {
             this.Position = position;
-            this.Velocity = velocity; 
+            this.Velocities = new List<Vector3d>();
+            this.Strengths = new List<double>();
             //this.Acceleration = acceleration;
         }
     }

@@ -9,11 +9,14 @@ namespace Wallaby
 {
     public abstract class GoalObject
     {
+        public List<Particle> Particles = new List<Particle>();
         public List<Point3d> Positions { get; set; }
-        public List<Vector3d> Moves { get; set; }
 
         public double Strength;
 
-        public abstract void Calculate(List<Particle> p);
+        public virtual void Calculate() 
+        { 
+        
+        }
     }
 }
