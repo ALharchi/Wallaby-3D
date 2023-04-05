@@ -8,6 +8,7 @@ using Rhino.Geometry;
 
 namespace Wallaby
 {
+    [Serializable]
     public class Particle
     {
         public Point3d Position;

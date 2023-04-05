@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Wallaby.Goals
 {
+    [Serializable]
     public class LoadGoal : GoalObject
     {
         public Vector3d Force;

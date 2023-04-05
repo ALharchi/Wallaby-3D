@@ -13,6 +13,8 @@ namespace Wallaby
     {
         public List<GoalObject> Goals { get; set; }
         public List<Particle> Particles { get; set; }
+        public List<GeometryObject> GeometryObjects { get; set; }
+
 
         public double Tolerance;
         public double Threshold;
@@ -20,12 +22,11 @@ namespace Wallaby
 
         public Solver(List<GoalObject> goals)
         {
-
             this.Goals = goals;
             this.Particles = new List<Particle>();
+            this.GeometryObjects = new List<GeometryObject>();
             CreateParticles();
-
-            //Update(Interations);
+            CreateGeometryObjects();
         }
 
         public void CreateParticles()
@@ -54,6 +55,36 @@ namespace Wallaby
             }
         }
 
+        public void CreateGeometryObjects()
+        {
+            foreach (GoalObject goal in Goals)
+            {
+                goal.AddGeometryObjects(this.GeometryObjects);
+            }
+        }
+
+
+        public List<dynamic> GetGeometryObjects()
+        {
+            List<dynamic> returnGeometryObjects = new List<dynamic>();
+
+            foreach (GeometryObject geoObj in this.GeometryObjects)
+            {
+                switch (geoObj.Type)
+                {
+                    case GeometryObjectType.Line:
+                        returnGeometryObjects.Add(new Line(geoObj.LineObject[0].Position, geoObj.LineObject[1].Position));
+                        break;
+                    case GeometryObjectType.Mesh:
+                        // implement Mesh
+                        break;
+                }
+            }
+
+            return returnGeometryObjects;
+        }
+
+
         public void Update(int iterationsCount)
         {
             for (int i = 0; i < iterationsCount; i++)
@@ -79,7 +110,6 @@ namespace Wallaby
                     Particles[j].Position += targetVelocity;
 
                     //averageMove += targetVelocity.Length;
-
                 }
             }
         }

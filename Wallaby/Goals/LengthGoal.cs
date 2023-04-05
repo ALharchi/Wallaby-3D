@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Wallaby.Goals
 {
+    [Serializable]
     public class LengthGoal : GoalObject
     {
-
         double Lenght;
 
         public LengthGoal(Line line, double length, double strength)
@@ -19,9 +19,16 @@ namespace Wallaby.Goals
             this.Lenght = length;
             this.Strength = strength;
         }
+
+        public override void AddGeometryObjects(List<GeometryObject> geometryObjects)
+        {
+            GeometryObject ln = new GeometryObject(GeometryObjectType.Line);
+            ln.AddLine(this.Particles[0], this.Particles[1]);
+            geometryObjects.Add(ln);
+        }
+
         public override void Calculate()
         {
-
             Vector3d current = this.Particles[1].Position - this.Particles[0].Position;
             double stretchfactor = 1.0 - Lenght / current.Length;
             Vector3d SpringMove = 0.5 * current * stretchfactor;

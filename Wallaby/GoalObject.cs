@@ -7,6 +7,7 @@ using Rhino.Geometry;
 
 namespace Wallaby
 {
+    [Serializable]
     public abstract class GoalObject
     {
         public List<Particle> Particles = new List<Particle>();
@@ -14,9 +15,12 @@ namespace Wallaby
 
         public double Strength;
 
-        public virtual void Calculate() 
-        { 
-        
+        public virtual void Calculate()
+        {
+
         }
+
+        public virtual void AddGeometryObjects(List<GeometryObject> geometryObjects)
+        { }
     }
 }

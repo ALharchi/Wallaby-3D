@@ -6,8 +6,26 @@ using Rhino.Geometry;
 using Wallaby.Goals;
 using System.Linq;
 
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+
 namespace Wallaby.Components
 {
+
+    public static class DeepCloneHelper
+    {
+        public static T DeepClone<T>(T obj)
+        {
+            using (var ms = new MemoryStream())
+            {
+                var formatter = new BinaryFormatter();
+                formatter.Serialize(ms, obj);
+                ms.Position = 0;
+                return (T)formatter.Deserialize(ms);
+            }
+        }
+    }
+
     public class SolverComponent : GH_Component
     {
         /// <summary>
@@ -40,7 +58,7 @@ namespace Wallaby.Components
             pManager.AddGenericParameter("Debug", "D", "Debugging", GH_ParamAccess.item);
             pManager.AddIntegerParameter("Iterations", "I", "Iterations count", GH_ParamAccess.item);
             pManager.AddPointParameter("Points", "P", "Points", GH_ParamAccess.list);
-            pManager.AddGenericParameter("Objects", "O", "Goals tree output", GH_ParamAccess.tree);
+            pManager.AddGenericParameter("Objects", "O", "Goals tree output", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -49,7 +67,6 @@ namespace Wallaby.Components
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-
             List<GoalObject> myGoals = new List<GoalObject>();
             double threshold = 0;
             int maxIterations = 0;
@@ -58,22 +75,23 @@ namespace Wallaby.Components
             DA.GetData(1, ref threshold);
             DA.GetData(2, ref maxIterations);
 
+            List<GoalObject> myGoalsCopy = new List<GoalObject>();
 
-            Solver solver = new Solver(myGoals);
+            for (int i = 0; i < myGoals.Count; i++)
+            {
+                myGoalsCopy.Add(DeepCloneHelper.DeepClone(myGoals[i]));
+            }
+
+            Solver solver = new Solver(myGoalsCopy);
 
             solver.Update(maxIterations);
 
             DA.SetData(0, solver);
 
-
             List<Point3d> particlesAsPoints = solver.Particles.Select(p => p.Position).ToList();
             DA.SetDataList(2, particlesAsPoints);
 
-            //this.ExpireSolution(true);
-
-            //CoPlanarGoal myGoal = new CoPlanarGoal(new List<Point3d>(), 10);
-
-            //solver.Goals.Add(myGoal);
+            DA.SetDataList(3, solver.GetGeometryObjects());
         }
 
         /// <summary>

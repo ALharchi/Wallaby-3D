@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Wallaby.Goals
 {
+    [Serializable]
     public class AnchorGoal : GoalObject
     {
         public Point3d Target { get; set; }
