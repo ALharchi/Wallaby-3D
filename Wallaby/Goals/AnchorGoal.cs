@@ -1,4 +1,5 @@
-﻿using Rhino.Geometry;
+﻿using Rhino.ApplicationSettings;
+using Rhino.Geometry;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,17 +8,19 @@ using System.Threading.Tasks;
 
 namespace Wallaby.Goals
 {
-    public class CoPlanarGoal : GoalObject
+    public class AnchorGoal : GoalObject
     {
+        public Point3d Particule { get; set; }
 
-        public CoPlanarGoal(List<Point3d> points, double strength)
+
+        public AnchorGoal(Point3d p, double strength)
         { 
-        
-        }
 
+        }
         public override void Calculate(List<Particle> p)
         {
 
         }
+
     }
 }

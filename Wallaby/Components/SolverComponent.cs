@@ -13,7 +13,7 @@ namespace Wallaby.Components
         /// Initializes a new instance of the SolverComponent class.
         /// </summary>
         public SolverComponent()
-          : base("Solver", "Solver",
+          : base("Wallaby Solver", "Wallaby Solver",
               "The main component where goals are applied.",
               "Wallaby", "Solver")
         {
@@ -24,10 +24,11 @@ namespace Wallaby.Components
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Goals", "Goals", "Goal Objects", GH_ParamAccess.tree) ;
-            pManager.AddNumberParameter("Threshold", "Threshold", "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Tolerance", "Tolerance", "", GH_ParamAccess.item);
-            pManager.AddBooleanParameter("Reset", "Reset", "Reset the computation", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Goals", "G", "Goal Objects", GH_ParamAccess.tree) ;
+            pManager.AddNumberParameter("Threshold", "Th", "Stop when average movement is less that this value.", GH_ParamAccess.item, 0.000001);
+            //pManager.AddNumberParameter("Tolerance", "T", "Points closer than this distance will be combined into a single particle.", GH_ParamAccess.item, 0.0001);
+            pManager.AddNumberParameter("MaxIterations", "I", "Maximum number of iterations.", GH_ParamAccess.item);
+            //pManager.AddBooleanParameter("Reset", "Reset", "Reset the computation", GH_ParamAccess.item, false);
         }
 
         /// <summary>
@@ -35,8 +36,9 @@ namespace Wallaby.Components
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddIntegerParameter("Iteration", "Iteration", "Iterations count", GH_ParamAccess.item);
-            pManager.AddPointParameter("Points", "Points", "Points", GH_ParamAccess.list);
+            pManager.AddIntegerParameter("Iterations", "I", "Iterations count", GH_ParamAccess.item);
+            pManager.AddPointParameter("Points", "P", "Points", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Objects", "O", "Goals tree output", GH_ParamAccess.tree);
         }
 
         /// <summary>
@@ -46,11 +48,16 @@ namespace Wallaby.Components
         protected override void SolveInstance(IGH_DataAccess DA)
         {
 
-            Wallaby.Solver solver = new Solver();
+            //Solver solver = new Solver();
 
-            CoPlanarGoal myGoal = new CoPlanarGoal(new List<Point3d>(), 10);
 
-            solver.Goals.Add(myGoal);
+
+
+            //this.ExpireSolution(true);
+
+            //CoPlanarGoal myGoal = new CoPlanarGoal(new List<Point3d>(), 10);
+
+            //solver.Goals.Add(myGoal);
         }
 
         /// <summary>
@@ -60,7 +67,7 @@ namespace Wallaby.Components
         {
             get
             {
-                return null;
+                return Wallaby.Properties.Resources.SolverIcon;
             }
         }
 

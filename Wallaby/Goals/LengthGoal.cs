@@ -7,14 +7,13 @@ using System.Threading.Tasks;
 
 namespace Wallaby.Goals
 {
-    public class CoPlanarGoal : GoalObject
+    public class LengthGoal : GoalObject
     {
+        public LengthGoal(Line line, double length, double strength)
+        {
 
-        public CoPlanarGoal(List<Point3d> points, double strength)
-        { 
-        
+            
         }
-
         public override void Calculate(List<Particle> p)
         {
 

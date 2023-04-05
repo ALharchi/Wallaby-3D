@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace Wallaby.Goals
 {
-    public class CoPlanarGoal : GoalObject
+    public class AnchorXYZGoal : GoalObject
     {
+        public Point3d Particule { get; set; }
 
-        public CoPlanarGoal(List<Point3d> points, double strength)
+        public AnchorXYZGoal() 
         { 
         
         }
@@ -19,5 +20,6 @@ namespace Wallaby.Goals
         {
 
         }
+
     }
 }
