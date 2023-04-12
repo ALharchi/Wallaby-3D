@@ -7,7 +7,6 @@ using Rhino.Geometry;
 
 namespace Wallaby
 {
-    [Serializable]
     public abstract class GoalObject
     {
         public List<Particle> Particles = new List<Particle>();

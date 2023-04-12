@@ -63,7 +63,6 @@ namespace Wallaby
             }
         }
 
-
         public List<dynamic> GetGeometryObjects()
         {
             List<dynamic> returnGeometryObjects = new List<dynamic>();

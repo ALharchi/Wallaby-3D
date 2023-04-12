@@ -12,20 +12,6 @@ using System.Runtime.Serialization.Formatters.Binary;
 namespace Wallaby.Components
 {
 
-    public static class DeepCloneHelper
-    {
-        public static T DeepClone<T>(T obj)
-        {
-            using (var ms = new MemoryStream())
-            {
-                var formatter = new BinaryFormatter();
-                formatter.Serialize(ms, obj);
-                ms.Position = 0;
-                return (T)formatter.Deserialize(ms);
-            }
-        }
-    }
-
     public class SolverComponent : GH_Component
     {
         /// <summary>
@@ -79,7 +65,7 @@ namespace Wallaby.Components
 
             for (int i = 0; i < myGoals.Count; i++)
             {
-                myGoalsCopy.Add(DeepCloneHelper.DeepClone(myGoals[i]));
+                myGoalsCopy.Add(myGoals[i]);
             }
 
             Solver solver = new Solver(myGoalsCopy);
