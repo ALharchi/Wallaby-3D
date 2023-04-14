@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace Wallaby.Goals
 {
-    [Serializable]
     public class LengthGoal : GoalObject
     {
         double Lenght;

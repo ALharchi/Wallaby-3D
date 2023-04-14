@@ -23,8 +23,6 @@ namespace Wallaby.Components
             pManager.AddGenericParameter("Goals", "G", "Goal Objects", GH_ParamAccess.list) ;
             pManager.AddNumberParameter("Threshold", "Th", "Stop when average movement is less that this value.", GH_ParamAccess.item, 0.000001);
             pManager.AddIntegerParameter("MaxIterations", "I", "Maximum number of iterations.", GH_ParamAccess.item, 5);
-            //pManager.AddNumberParameter("Tolerance", "T", "Points closer than this distance will be combined into a single particle.", GH_ParamAccess.item, 0.0001);
-            //pManager.AddBooleanParameter("Reset", "Reset", "Reset the computation", GH_ParamAccess.item, false);
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)

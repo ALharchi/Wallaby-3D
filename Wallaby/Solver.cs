@@ -15,9 +15,6 @@ namespace Wallaby
         public List<Particle> Particles { get; set; }
         public List<GeometryObject> GeometryObjects { get; set; }
 
-
-        public double Tolerance;
-        public double Threshold;
         public int Interations;
 
         public Solver(List<GoalObject> goals)
