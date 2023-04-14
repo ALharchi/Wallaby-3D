@@ -9,7 +9,7 @@ Wallaby is a simple lightweight geometric constraint solver that can solve a wid
 
 ## Project Scope and Limitations
 
-While Wallaby is a functional geometric constraint solver, it is primarily a teaching project aimed at helping students understand how geometric solvers work and how to implement them. As such, users should not expect the same level of performance or accuracy as they would from a professional-grade solver. Wallaby is designed to be lightweight and easy to use, and it may not be suitable for solving complex problems or large-scale structures. 
+While Wallaby is a functional geometric constraint solver, it is primarily a teaching project aimed at helping students understand how geometric solvers work and how to implement them. As such, users should not expect the same level of performance or accuracy as they would from a professional-grade solver. Additionally, Wallaby's solver runs for a specified number of iterations, rather than stopping when it reaches a converged solution. This means that users may need to manually adjust the iteration count to achieve an acceptable level of accuracy. Furthermore, the integration methods used by Wallaby are relatively simple, which may affect the accuracy of the results. 
 
 ## Installation
 
