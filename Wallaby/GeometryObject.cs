@@ -27,7 +27,6 @@ namespace Wallaby
         {
 
         }
-
     }
 
     public enum GeometryObjectType

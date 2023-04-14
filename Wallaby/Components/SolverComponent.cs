@@ -14,19 +14,10 @@ namespace Wallaby.Components
 
     public class SolverComponent : GH_Component
     {
-        /// <summary>
-        /// Initializes a new instance of the SolverComponent class.
-        /// </summary>
-        public SolverComponent()
-          : base("Wallaby Solver", "Wallaby Solver",
-              "The main component where goals are applied.",
-              "Wallaby", "Solver")
-        {
-        }
+        public SolverComponent() : base("Wallaby Solver", "Wallaby Solver", "The main component where goals are applied.", "Wallaby", "Solver") { }
+        protected override System.Drawing.Bitmap Icon { get { return Wallaby.Properties.Resources.SolverIcon; } }
+        public override Guid ComponentGuid { get { return new Guid("DD26BFE2-0A22-4287-BE15-93AA397D7787"); } }
 
-        /// <summary>
-        /// Registers all the input parameters for this component.
-        /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Goals", "G", "Goal Objects", GH_ParamAccess.list) ;
@@ -36,21 +27,13 @@ namespace Wallaby.Components
             //pManager.AddBooleanParameter("Reset", "Reset", "Reset the computation", GH_ParamAccess.item, false);
         }
 
-        /// <summary>
-        /// Registers all the output parameters for this component.
-        /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             pManager.AddGenericParameter("Debug", "D", "Debugging", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("Iterations", "I", "Iterations count", GH_ParamAccess.item);
             pManager.AddPointParameter("Points", "P", "Points", GH_ParamAccess.list);
-            pManager.AddGenericParameter("Objects", "O", "Goals tree output", GH_ParamAccess.list);
+            pManager.AddGeometryParameter("Objects", "O", "Goals tree output", GH_ParamAccess.list);
         }
 
-        /// <summary>
-        /// This is the method that actually does the work.
-        /// </summary>
-        /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             List<GoalObject> myGoals = new List<GoalObject>();
@@ -61,42 +44,17 @@ namespace Wallaby.Components
             DA.GetData(1, ref threshold);
             DA.GetData(2, ref maxIterations);
 
-            List<GoalObject> myGoalsCopy = new List<GoalObject>();
-
-            for (int i = 0; i < myGoals.Count; i++)
-            {
-                myGoalsCopy.Add(myGoals[i]);
-            }
-
-            Solver solver = new Solver(myGoalsCopy);
+            Solver solver = new Solver(myGoals);
 
             solver.Update(maxIterations);
 
-            DA.SetData(0, solver);
-
             List<Point3d> particlesAsPoints = solver.Particles.Select(p => p.Position).ToList();
-            DA.SetDataList(2, particlesAsPoints);
-
-            DA.SetDataList(3, solver.GetGeometryObjects());
+            
+            DA.SetData(0, solver);
+            DA.SetDataList(1, particlesAsPoints);
+            DA.SetDataList(2, solver.GetGeometryObjects());
         }
 
-        /// <summary>
-        /// Provides an Icon for the component.
-        /// </summary>
-        protected override System.Drawing.Bitmap Icon
-        {
-            get
-            {
-                return Wallaby.Properties.Resources.SolverIcon;
-            }
-        }
-
-        /// <summary>
-        /// Gets the unique ID for this component. Do not change this ID after release.
-        /// </summary>
-        public override Guid ComponentGuid
-        {
-            get { return new Guid("DD26BFE2-0A22-4287-BE15-93AA397D7787"); }
-        }
+        
     }
 }

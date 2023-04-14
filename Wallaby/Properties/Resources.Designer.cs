@@ -73,6 +73,26 @@ namespace Wallaby.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap LengthIcon {
+            get {
+                object obj = ResourceManager.GetObject("LengthIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LoadIcon {
+            get {
+                object obj = ResourceManager.GetObject("LoadIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap SolverIcon {
             get {
                 object obj = ResourceManager.GetObject("SolverIcon", resourceCulture);

@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace Wallaby.Goals
 {
-    [Serializable]
     public class AnchorGoal : GoalObject
     {
         public Point3d Target { get; set; }
 
-        public AnchorGoal(Point3d p, Point3d t, double strength)
+        public AnchorGoal(Point3d point, Point3d target, double strength)
         {
-            this.Positions = new List<Point3d>() { p };
-            this.Target = t;
+            this.Positions = new List<Point3d>() { point };
+            this.Target = target;
             this.Strength = strength;
         }
+
         public override void Calculate()
         {
             Vector3d velocity = Target - this.Particles[0].Position;
